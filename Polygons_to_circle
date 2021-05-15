@@ -1,0 +1,29 @@
+
+class Polygons_to_circle(Scene):
+
+    def construct(self):
+        # Normal Transition
+        txt1 = Text("Normal Transition ").shift(UP * 3)
+        self.play(Write(txt1))
+
+        p_3 = RegularPolygon(3)
+        self.play(Write(p_3))
+        for i in range(20):
+            n = i + 4
+            p_n = RegularPolygon(n)
+            self.play(Transform(p_3, p_n),run_time=0.5)
+        self.play(FadeOut(p_3))
+
+        txt2 = Text("Even Better Transition ").shift(UP*3)
+        self.play(Transform(txt1, txt2))
+        #Better Transition
+        '''
+        Here the starting angle of polygon is set as the internal angle of regular polygon=180*(n-2)/n for better transition
+        '''
+        p_3 = RegularPolygon(3)
+        self.play(Write(p_3))
+        for i in range(20):
+            n = i+4
+            int_angle = 180*(n-2)/n
+            p_n = RegularPolygon(n, int_angle*DEGREES)
+            self.play(Transform(p_3, p_n),run_time=0.5)
