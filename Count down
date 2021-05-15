@@ -1,0 +1,18 @@
+# In place of filepath , write your actual location of the audiofile whereever placed in your computer
+class CountDown(Scene):
+    def construct(self):
+        sec = 5
+        audio_file = filepath
+        intro = Text("CountDown Starts").shift(3*UP)
+
+        self.play(Write(intro))
+        txt1 = Text(str(sec), size=4)
+        self.play(Write(txt1))
+        self.play(FadeOut(intro))
+
+        for i in range(sec-1):
+            self.add_sound(audio_file)
+            txt2 = Text(str(sec-i-1), size=4)
+            self.play(Transform(txt1, txt2))
+        self.add_sound(audio_file)
+        self.wait(2)
