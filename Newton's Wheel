@@ -1,0 +1,26 @@
+
+class Newtons_wheel(Scene):
+    def construct(self):
+        txt1 = Text("Newton's Wheel").shift(UP * 3)
+        self.play(Write(txt1))
+        self.play(FadeOut(txt1))
+        self.wait()
+
+        # Creating Sectors with differnet colours, violet and indigo are not given in default so had to use hexadecimal code
+        sec=[]
+        VIOLET = "#EE82EE"
+        INDIGO = "#4B0082"
+        sec.append(Sector(4, 0, start_angle=0*360/7 * DEGREES, angle=(360 / 7) * DEGREES, color=VIOLET))
+        sec.append(Sector(4, 0, start_angle=1*360/7 * DEGREES, angle=(360 / 7) * DEGREES, color=INDIGO))
+        sec.append(Sector(4, 0, start_angle=2*360/7 * DEGREES, angle=(360 / 7) * DEGREES, color=BLUE))
+        sec.append(Sector(4, 0, start_angle=3*360/7 * DEGREES, angle=(360 / 7) * DEGREES, color=GREEN))
+        sec.append(Sector(4, 0, start_angle=4*360/7 * DEGREES, angle=(360 / 7) * DEGREES, color=YELLOW))
+        sec.append(Sector(4, 0, start_angle=5*360/7 * DEGREES, angle=(360 / 7) * DEGREES, color=ORANGE))
+        sec.append(Sector(4, 0, start_angle=6*360/7 * DEGREES, angle=(360 / 7) * DEGREES, color=RED))
+
+        # Grouping all the sectors
+        grouped = Group(sec[0], sec[1], sec[2], sec[3], sec[4], sec[5], sec[6])
+
+        # Rotating every sectors at a very high speed
+        for i in range(500):
+            self.play(grouped.animate.rotate((360/7)*DEGREES), run_time=0.0001)
