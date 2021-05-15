@@ -1,0 +1,13 @@
+# Just draws a large number of rectangles to draw a progress bar
+class ProgressBar(Scene):
+    def construct(self):
+
+        intro = Text("Progress Bar").shift(3 * UP)
+        self.play(Write(intro))
+        txt1 = Text("0%").shift(LEFT)
+        for i in range (101):
+            rect2 = Rectangle(height=1, width=1/20).shift(RIGHT*i*1/22)
+            txt2 = Text(str(i) + "%").shift(LEFT)
+            self.play(Transform(txt1,txt2),run_time=0.001)
+            self.play(Write(rect2),run_time=0.001)
+        self.wait(2)
