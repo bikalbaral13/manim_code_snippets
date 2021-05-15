@@ -1,0 +1,22 @@
+
+class Write_in_nepali(Scene):
+    '''
+    'font' can be selected as your wish . Here it is "PREETI" , which is Nepali script
+    'color' is the font color
+    'size' means the font size
+    font size is not the same that we use in ms word. here it is scaled up by some factor (assume 20 )
+    so here I have written the font size that resembles ms word font size and reduced the size by that factor (20)
+    'run_time' does the animation in given time(seconds)
+    'Write' writes the text
+    'Transform' morphs the first object into another . Here it transforms txt1 into txt2
+
+    You have to import the library of manim in the first line
+    In the terminal(cmd), you have to write the command :     manim 'filename' Write_in_nepali -pqk
+    and run.
+    put -pql for low quality video and -pqk for high quality
+    '''
+    def construct(self):
+        txt1 = Text("gd:t]", font="PREETI",color=WHITE,  size=30/20)
+        self.play(Write(txt1), run_time=2)
+        txt2= Text(" of] lel8of] x]g'{ePsf]df tkfO{nfO{ wGojfb", font="PREETI", size=20/20, color=YELLOW)
+        self.play(Transform(txt1, txt2, run_time=2))
