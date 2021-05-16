@@ -1,0 +1,30 @@
+'''
+Notes:
+It is about rolling a ball in a parabolic path .
+But the path followed by the ball is different and mathematical.
+The path of ball can be calculated using F(x)=f(x+r*sinA)+rcosA
+      where y=f(x)
+      A=arctan(dy/dx)
+      r= radius of the ball
+      In our case:
+      F(x)= (x+rsinA)^2+rcosA
+'''
+class RollingBall(Scene):
+    def construct(self):
+        intro = Text("Rolling Ball").shift(3 * UP)
+        self.play(Write(intro))
+        self.play(FadeOut(intro))
+
+        r = 0.3
+        func=lambda x: x*x
+        ball_function_path=lambda x: (x+r*np.sin(np.arctan(2*x)))*(x+r*np.sin(np.arctan(2*x))) +r*np.cos(np.arctan(2*x))
+
+        func_graph=FunctionGraph(func,(-2,2)).shift(DOWN*3)
+        ball_path=FunctionGraph(ball_function_path,(-2,2)).shift(DOWN*3)
+        ball = Dot(radius=r)
+        ball.move_to(ball_path.points[0])
+
+
+        self.play(Create(func_graph))
+        self.play(MoveAlongPath(ball,ball_path),run_time=15)
+        self.wait(2)
