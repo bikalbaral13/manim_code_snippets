@@ -1,0 +1,14 @@
+
+class Rotate_sphere(ThreeDScene):
+    def construct(self):
+        intro = Text("Rotating Sphere").shift(3 * UP)
+        self.play(Write(intro))
+        self.play(FadeOut(intro))
+
+        self.set_camera_orientation(phi=60 * DEGREES, theta=60 * DEGREES, gamma=0*DEGREES)
+        self.begin_ambient_camera_rotation(4)
+        planet = Sphere(radius=1.5, resolution=(20,20),  gloss=0.3, shadow=0.4)
+        self.play(Create(planet))
+        self.wait(6)
+        self.stop_ambient_camera_rotation()
+        self.wait(1)
