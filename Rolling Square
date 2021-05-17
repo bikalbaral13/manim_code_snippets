@@ -1,0 +1,18 @@
+
+class Rollling_Square(Scene):
+
+    def construct(self):
+
+        intro = Text("Rolling Square").shift(3 * UP)
+        self.play(Write(intro))
+
+        a = 1
+        sqr = Square(a).shift(LEFT*5*a)
+        self.play(Write((Line(LEFT*10,RIGHT*10).shift(DOWN*(a/2)))))
+        self.play(Write(sqr))
+
+        for i in range(8):
+            animation = Rotate(sqr, angle=-90*DEGREES, in_place=True,about_point=(-4.5*a+a*i,-a/2,0))
+            self.play(animation,run_time=1)
+
+        self.wait(1)
