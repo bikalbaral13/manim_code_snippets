@@ -1,0 +1,18 @@
+
+class Reuleaux(Scene):
+    def construct(self):
+        # Normal Transition
+        txt1 = Text("Reuleaux Triangle ")
+        self.play(Write(txt1))
+        self.play(txt1.animate.shift(UP*3))
+
+        tri=Triangle().scale(2)
+        self.play(Write(tri))
+        vertices = tri.get_vertices()
+
+        for i in range(3):
+            arc = ArcBetweenPoints(vertices[i],vertices[(i+1)%3],60*DEGREES)
+            self.play(Write(arc))
+
+        self.play(FadeOut(tri))
+        self.wait(2)
