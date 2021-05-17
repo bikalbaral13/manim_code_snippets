@@ -1,0 +1,131 @@
+
+class decimal_to_quinary(Scene):
+    def construct(self):
+        # Introduction
+
+        txt1 = Text("Decimal Into Quinary Conversion")
+        self.play(Write(txt1))
+        self.play(txt1.animate.shift(UP * 3))
+
+        txt_100= Text("Convert 738 into Quinary",size=0.5)
+        self.play(Write(txt_100))
+        self.play(txt_100.animate.shift(LEFT * 4+UP*2))
+
+        # Assigning boxes with numbers
+        box_1=[]
+        box_5=[]
+        box_25=[]
+        box_125=[]
+        box_625=[]
+        box_3125=[]
+
+
+        for i in range(4):
+            sqr_1 = Square().scale(0.5)
+            txt_1= Text("1",size=0.7)
+            box_1.append(Group(txt_1,sqr_1))
+
+            sqr_5= Square().scale(0.5)
+            txt_5 = Text("5", size=0.7)
+            box_5.append( Group(txt_5, sqr_5))
+
+            sqr_125 = Square().scale(0.5)
+            txt_125 = Text("125", size=0.7)
+            box_125.append(Group(txt_125, sqr_125))
+
+            sqr_25= Square().scale(0.5)
+            txt_25 = Text("25", size=0.7)
+            box_25.append(Group(txt_25, sqr_25))
+
+            sqr_625 = Square().scale(0.5)
+            txt_625 = Text("625", size=0.7)
+            box_625.append(Group(txt_625, sqr_625))
+
+            sqr_3125 = Square().scale(0.5)
+            txt_3125 = Text("3125", size=0.7)
+            box_3125.append(Group(txt_3125, sqr_3125))
+
+
+
+        for i in range(4):
+            
+            self.play(box_1[i].animate.shift(UP * (i-1) + RIGHT * 4),run_time=0.2)
+            self.play(box_5[i].animate.shift(UP * (i - 1) + RIGHT * 3),run_time=0.2)
+            self.play(box_25[i].animate.shift(UP * (i - 1) + RIGHT * 2),run_time=0.2)
+            self.play(box_125[i].animate.shift(UP * (i - 1) + RIGHT * 1), run_time=0.2)
+            self.play(box_625[i].animate.shift(UP * (i - 1)),run_time=0.2)
+            self.play(box_3125[i].animate.shift(UP * (i - 1)+LEFT),run_time=0.2)
+
+        
+        #Positioning with fading nature
+        txt_100 = Text("Choose numbers from the box ",size=0.5)
+        txt__=Text("so that their sum becomes 738",size=0.5)
+        self.play(txt_100.animate.shift(LEFT * 4 + UP))
+        self.play(txt__.animate.shift(LEFT * 4 +UP*0.5))
+        self.wait(2)
+
+
+        box_625[0].add_background_rectangle(GREEN, 0.9)
+        txt_11 = Text("625").shift(RIGHT * 6)
+        self.play(Write(txt_11))
+        self.wait(2)
+
+        box_25[0].add_background_rectangle(GREEN,0.9)
+        txt_12 = Text("650").shift(RIGHT * 6)
+        self.play(Transform(txt_11,txt_12))
+        self.wait(2)
+
+        box_25[1].add_background_rectangle(GREEN, 0.9)
+        txt_12 = Text("675").shift(RIGHT* 6)
+        self.play(Transform(txt_11, txt_12))
+        self.wait(2)
+
+        box_25[2].add_background_rectangle(GREEN, 0.9)
+        txt_12 = Text("700").shift(RIGHT* 6)
+        self.play(Transform(txt_11, txt_12))
+        self.wait(2)
+
+        box_25[3].add_background_rectangle(GREEN, 0.9)
+        txt_12 = Text("725").shift(RIGHT* 6)
+        self.play(Transform(txt_11, txt_12))
+        self.wait(2)
+
+        box_5[0].add_background_rectangle(GREEN,0.9)
+        txt_13 = Text("730").shift(RIGHT* 6)
+        self.play(Transform(txt_11, txt_13))
+        self.wait(2)
+
+        box_5[1].add_background_rectangle(GREEN, 0.9)
+        txt_14 = Text("735").shift(RIGHT* 6)
+        self.play(Transform(txt_11, txt_14))
+        self.wait(2)
+
+        box_1[0].add_background_rectangle(GREEN,0.9)
+        txt_15 = Text("736").shift(RIGHT* 6)
+        self.play(Transform(txt_11, txt_15))
+        self.wait(2)
+
+        box_1[1].add_background_rectangle(GREEN,0.9)
+        txt_16 = Text("737").shift(RIGHT* 6)
+        self.play(Transform(txt_11, txt_16))
+        self.wait(2)
+
+        box_1[2].add_background_rectangle(GREEN, 0.9)
+        txt_17 = Text("738").shift(RIGHT* 6)
+        self.play(Transform(txt_11, txt_17))
+        self.wait(2)
+
+        txt_100 = Text("Count number of selected ",size=0.5)
+        txt__= Text("boxes in each column",size=0.5)
+        self.play(txt_100.animate.shift(LEFT * 4+DOWN))
+        self.play(txt__.animate.shift(LEFT * 4+DOWN*1.5))
+        self.wait(2)
+
+        self.play(Text("1").animate.shift(DOWN*2))
+        self.play(Text("0").animate.shift(DOWN * 2 + RIGHT))
+        self.play(Text("4").animate.shift(DOWN * 2 + RIGHT * 2))
+        self.play(Text("2").animate.shift(DOWN * 2 + RIGHT * 3))
+        self.play(Text("3").animate.shift(DOWN * 2 + RIGHT * 4))
+
+        self.play(Text("738 = 10423 in Quinary  ", size=0.5).animate.shift(LEFT * 4+DOWN*3))
+        self.wait(2)
