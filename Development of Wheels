@@ -1,0 +1,26 @@
+
+class Wheels(Scene):
+
+    def construct(self):
+        intro = Text("Development of Circular Wheels").shift(3 * UP)
+        self.play(Write(intro))
+
+        x_pos=7
+        self.play(Write((Line(LEFT * 10, RIGHT * 10))))
+        p_previous=RegularPolygon(3)
+        for i in range(20):
+
+            n=i+3
+            r=1
+            ang = (180/n)*DEGREES
+            side = 2*r *np.sin(ang)
+            internal_angle =((n-2)*180/n)*DEGREES
+            external_angle = (360/n)*DEGREES
+
+            p_n = RegularPolygon(n, -internal_angle / 2).shift(LEFT * (x_pos-side/2)).shift(UP *(np.cos((180/n)*DEGREES)))
+            self.play(FadeTransform(p_previous, p_n),run_time=0.5)
+            animation = Rotate(p_n, angle=-external_angle, in_place=True,about_point=(-x_pos+side, 0, 0))
+            self.play(animation)
+            self.wait(0.001)
+            p_previous=p_n
+            x_pos = x_pos -side
