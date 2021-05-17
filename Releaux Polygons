@@ -1,0 +1,30 @@
+
+class Reuleaux_polygons(Scene):
+    def construct(self):
+        # Normal Transition
+        txt1 = Text("Reuleaux Polygons ")
+        self.play(Write(txt1))
+        self.play(txt1.animate.shift(UP*3))
+        self.play(FadeOut(txt1))
+
+        for h in range (4):
+            n=2*h+3
+            poly_n=RegularPolygon(n).scale(2)
+            self.play(Write(poly_n))
+            vertices = poly_n.get_vertices()
+
+
+            for i in range(n):
+                ang = (180/n)*DEGREES
+                v1= vertices[int((i+(n-1)/2)% n)]
+                v2= vertices[int((i+(n+1)/2)% n)]
+                arc = ArcBetweenPoints(v1,v2,ang)
+                self.play(Write(arc))
+
+            self.play(FadeOut(poly_n))
+            self.clear()
+            self.wait(1)
+
+
+        self.wait(2)
+        
