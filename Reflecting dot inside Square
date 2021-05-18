@@ -1,0 +1,36 @@
+
+class dot_reflection(Scene):
+
+    def construct(self):
+        # Introduction
+
+        intro_text = Text("Reflection inside a box", size=2)
+        self.play(Write(intro_text))
+        self.play(intro_text.animate.shift(UP * 3.5).scale(0.3))
+        self.wait(2)
+
+        iter=200
+        theta =20*DEGREES
+        m = np.tan(theta)
+        dt=0.2
+        side=2
+        dot=Dot(radius=0.05,color=BLUE)
+        self.play(Write(dot))
+        sqr=Square(side_length=side).shift(UP*side/2+RIGHT*side/2)
+        self.play(Write(sqr))
+        x_cor = 0
+        y_cor = 0
+        temp_x=0
+        temp_y=0
+        for i in range(iter):
+            temp_x = x_cor+ dt*np.cos(theta)
+            temp_y= y_cor +dt*np.sin(theta)
+            if temp_x >=  side or temp_x<=0: theta = PI-theta
+            if temp_y>= side or temp_y <= 0: theta = -theta
+
+            x_cor =x_cor+ dt*np.cos(theta)
+            y_cor =y_cor +dt*np.sin(theta)
+            dot2=Dot([x_cor,y_cor,0],radius=0.05)
+            self.play(Transform(dot,dot2),run_time=0.1)
+
+
