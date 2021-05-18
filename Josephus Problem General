@@ -1,0 +1,101 @@
+
+class Josephus(Scene):
+
+    def construct(self):
+        # Introduction
+
+        intro_text = Text("Josephus Problem",size=2)
+        self.play(Write(intro_text))
+        self.play(intro_text.animate.shift(UP * 3.5).scale(0.3))
+        self.wait(2)
+
+        # Draw Circles in vertices
+        n=2
+        k=7
+        k_text = Text("Number of Players(k) =" + str(k), size=0.4).to_edge(UL)
+        self.play(Write(k_text))
+        n_text = Text("Spacing of killing(n) =" + str(n), size=0.4).to_edge(LEFT).shift(UP*3)
+        self.play(Write(n_text))
+        screen_radius=3
+        scale_factor = screen_radius
+        poly_k = RegularPolygon(k).scale(scale_factor)
+        vertices = poly_k.get_vertices()
+        num = []
+
+
+        # Getting killing sequence and circles
+        k_list = []
+        kill = 0
+        kill_sequence = []
+        circles=[]
+        texts=[]
+        num=[]
+        for i in range(k):
+            k_list.append(i + 1)
+
+        for i in range(k):
+            kill = (kill + n - 1) % (len(k_list))
+            kill_sequence.append(k_list[kill])
+            k_list.pop(kill)
+
+            x_cor = RIGHT * vertices[i][0]
+            y_cor = UP * vertices[i][1]
+            circles.append( Circle(radius=0.5).shift(x_cor+y_cor).set_fill(color=GREEN,opacity=0.9))
+            num.append(Text(str(i + 1)).shift(x_cor + y_cor))
+            self.play(Create(circles[i]), run_time=0.2)
+            self.play(Write(num[i], run_time=0.2))
+
+        # Killing animation
+
+        for i in range(k-1):
+            circle=circles[kill_sequence[i]-1]
+            txt= num[kill_sequence[i]-1]
+            self.play(FadeOut(circle),FadeOut(txt))
+            self.wait(0.4)
+        self.wait(2)
+
+        #Scene 2
+        self.clear()
+        # Draw Circles in vertices
+        n = 3
+        k = 12
+        k_text = Text("Number of Players(k) =" + str(k), size=0.4).to_edge(UL)
+        self.play(Write(k_text))
+        n_text = Text("Spacing of killing(n) =" + str(n), size=0.4).to_edge(LEFT).shift(UP * 3)
+        self.play(Write(n_text))
+        screen_radius = 3
+        scale_factor = screen_radius
+        poly_k = RegularPolygon(k).scale(scale_factor)
+        vertices = poly_k.get_vertices()
+        num = []
+
+
+        # Getting killing sequence and circles
+        k_list = []
+        kill = 0
+        kill_sequence = []
+        circles = []
+        texts = []
+        num = []
+        for i in range(k):
+            k_list.append(i + 1)
+
+        for i in range(k):
+            kill = (kill + n - 1) % (len(k_list))
+            kill_sequence.append(k_list[kill])
+            k_list.pop(kill)
+
+            x_cor = RIGHT * vertices[i][0]
+            y_cor = UP * vertices[i][1]
+            circles.append(Circle(radius=0.5).shift(x_cor + y_cor).set_fill(color=GREEN, opacity=0.9))
+            num.append(Text(str(i + 1)).shift(x_cor + y_cor))
+            self.play(Create(circles[i]), run_time=0.2)
+            self.play(Write(num[i], run_time=0.2))
+
+        # Killing animation
+        for i in range(k-1):
+            circle=circles[kill_sequence[i]-1]
+            txt= num[kill_sequence[i]-1]
+            self.play(FadeOut(circle),FadeOut(txt))
+            self.wait(0.4)
+        self.wait(2)
