@@ -7,8 +7,8 @@ from shapely.geometry import Point
 from shapely.geometry import polygon
 from shapely.geometry import  LineString
 
-class reflect_dot_inside_polygon(Scene):
-   
+class reflection(Scene):
+
     def construct(self):
         # Introduction
 
@@ -19,38 +19,56 @@ class reflect_dot_inside_polygon(Scene):
 
         #Getting Inputs
 
-        vertices=[(-4,0,0),(4,-3,0),(5,0,0),(5,3,0),(2,3,0)]
+        vertices=[(-2,2,0),(-2,-2,0),(2,-2,0),(2,2,0)]
         poly = Polygon(*vertices)
-        _polygon =polygon.Polygon([(-4,0),(4,-3),(5,0),(5,3),(2,3)])
         self.play(Write(poly))
 
-        iter = 200                 # number of iterations
-        theta = 120* DEGREES                # starting angle
-        start_pt=(0,0,0)             # starting_point
-        m = np.tan(theta)                   # Throwing slope
-        dt = 0.3             # small change in coordinates
-        dot = Dot(radius=0.05, color=BLUE).move_to(RIGHT*(start_pt[0])+UP*start_pt[1])  # Dot information
-        self.play(Write(dot))
+        iter = 100        # number of iterations
+        start_pt = (0, 0, 0)  # starting_point
 
-        x_cor = start_pt[0]
-        y_cor = start_pt[1]
+        dot_1 = Dot(radius=0.1, color=BLUE).move_to(RIGHT*(start_pt[0])+UP*start_pt[1])  # Dot information
+        x_cor_1 = start_pt[0]
+        y_cor_1 = start_pt[1]
+        theta_1=23*DEGREES
+
+        dot_2 = Dot(radius=0.1, color=YELLOW).move_to(RIGHT * (start_pt[0]) + UP * start_pt[1])  # Dot information
+        x_cor_2 = start_pt[0]
+        y_cor_2 = start_pt[1]
+        theta_2 = 121*DEGREES
+
+        dt = 0.2  # small change in coordinates
 
         for i in range(iter):
+            #updating coordinates
 
-            line_1 = LineString([(x_cor, y_cor), (x_cor + dt * np.cos(theta), y_cor + dt * np.sin(theta))])
+            theta_1=self.get_theta(x_cor_1,y_cor_1,dt,theta_1,vertices)
+            x_cor_1 = x_cor_1 + dt * np.cos(theta_1)
+            y_cor_1 = y_cor_1 + dt * np.sin(theta_1)
+            dot_1final = Dot([x_cor_1, y_cor_1, 0],color=BLUE, radius=0.1)
+            self.play(Transform(dot_1, dot_1final), run_time=0.01)
 
-            for j in range(5):
-                x_1 = vertices[j][0]
-                y_1 = vertices[j][1]
-                x_2 = vertices[(j+1)%5][0]
-                y_2 = vertices[(j+1)%5][1]
-                line_2 = LineString([(x_1, y_1), (x_2,y_2)])
+            theta_2 = self.get_theta(x_cor_2, y_cor_2, dt, theta_2, vertices)
+            x_cor_2 = x_cor_2 + dt * np.cos(theta_2)
+            y_cor_2 = y_cor_2 + dt * np.sin(theta_2)
+            dot_2final = Dot([x_cor_2, y_cor_2, 0], color=YELLOW, radius=0.1)
+            self.play(Transform(dot_2, dot_2final), run_time=0.01)
 
-                if line_1.intersects(line_2)== True :
-                    nearest_theta=np.arctan2((y_2 - y_1),  x_2 - x_1)
-                    theta = 2 * nearest_theta - theta
-            x_cor = x_cor + dt * np.cos(theta)
-            y_cor = y_cor + dt * np.sin(theta)
-            dot2 = Dot([x_cor, y_cor, 0], radius=0.05)
-            self.play(Transform(dot, dot2), run_time=0.01)
         self.wait(2)
+
+    def get_theta(self,x_cor,y_cor,dt,theta,vertices):
+
+        count=np.shape(vertices)[0]
+        line_1 = LineString([(x_cor, y_cor), (x_cor + dt * np.cos(theta), y_cor + dt * np.sin(theta))])
+        for j in range(count):
+            x_1 = vertices[j][0]
+            y_1 = vertices[j][1]
+            x_2 = vertices[(j + 1) % count][0]
+            y_2 = vertices[(j + 1) % count][1]
+            line_2 = LineString([(x_1, y_1), (x_2, y_2)])
+
+            if line_1.intersects(line_2) == True:
+                nearest_theta = np.arctan2((y_2 - y_1), x_2 - x_1)
+                theta = 2 * nearest_theta - theta
+
+            # updating coordinates
+        return theta
