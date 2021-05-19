@@ -1,28 +1,14 @@
+############## NOTES#############
+1) shapely is imported which is a good library to work with polygons. It has a function that checks intersection of two lines and also finds whether a point lies inside a polygon or not.
+2) Linestring command checks for the intersection of two lines (x1,y1)__(x2,y2) and (x1,y1)___ (x2,y2)
+#
+
 from shapely.geometry import Point
 from shapely.geometry import polygon
 from shapely.geometry import  LineString
 
 class reflect_dot_inside_polygon(Scene):
-    # finds distance between point and a line with two points
-    def distance_point_line(self,line_point_1, line_point_2, point):
-        point = Point(1, 0)
-        line_point_1 = Point(1, 2)
-        line_point_2 = Point(2, 3)
-        y2 = line_point_2.y
-        y1 = line_point_1.y
-        x2 = line_point_2.x
-        x1 = line_point_1.x
-        x = point.x
-        y = point.y
-        if x2 == x1:
-            distance = abs(x - x1)
-        else:
-            m = (y2 - y1) / (x2 - x1)
-            distance = (y - m * x - (line_point_1.y - m * line_point_1.x)) / (np.sqrt(1 + m * m))
-            distance = abs(distance)
-
-        return distance
-
+   
     def construct(self):
         # Introduction
 
