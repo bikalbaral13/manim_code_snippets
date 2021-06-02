@@ -1,0 +1,34 @@
+
+class Spirograph(Scene):
+    def construct(self):
+        intro_text = Text("Spirograph", size=1.5)
+        self.play(Write(intro_text))
+        self.play(intro_text.animate.shift(UP * 3.5).scale(0.5))
+        self.wait(2)
+
+        tri=RegularPolygon(3).scale(3)
+        self.play(Write(tri))
+        n= 15
+        ver=tri.get_vertices()
+        points=[]
+        for i in range(3):
+            x1=ver[i][0]
+            x2=ver[(i+1)%3][0]
+            y1 = ver[i][1]
+            y2 = ver[(i + 1) % 3][1]
+            theta=np.arctan2(y2-y1,x2-x1)
+            length=np.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1))
+            for j in range(n):
+                _x = x1+length/n*(j+1)*np.cos(theta)
+                _y= y1+length/n*(j+1)*np.sin(theta)
+                points.append([_x,_y,0])
+
+        for i in range(n):
+            _lin1=Line(points[i],points[(i+n)],color=RED)
+            self.play(Write(_lin1),run_time=0.2)
+            _lin2 = Line(points[i+n], points[(i  + 2*n)],color=GREEN)
+            self.play(Write(_lin2),run_time=0.2)
+            _lin3 = Line(points[i+2*n], points[i],color=YELLOW)
+            self.play(Write(_lin3),run_time=0.2)
+
+        self.wait(2)
